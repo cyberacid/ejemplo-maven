@@ -32,6 +32,22 @@ pipeline {
                 }
             }
         }
+
+        stage("Paso 4: Levantar Springboot APP"){
+            steps {
+                sh 'mvn spring-boot:run &'
+            }
+        }
+        stage("Paso 5: Dormir(Esperar 10sg) "){
+            steps {
+                sh 'sleep 10'
+            }
+        }
+        stage("Paso 6: Test Jmeter"){
+            steps {
+                sh 'mvn verify -Pperformance'
+            }
+        }
     }
     post {
         always {
