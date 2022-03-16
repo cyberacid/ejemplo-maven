@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "8ff79b92-9d68-4b04-bd9f-66347e7c99de",
+		"name": "Ejemplo Maven",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "chile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"",
+							"pm.test(\"Status 200\",function() {",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Tiempo < 2000\",function() {",
+							"    pm.expect(pm.response.responseTime).is.lessThan(2000)",
+							"});",
+							"",
+							"pm.test(\"Valor de objeto\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.mensaje).to.eql('ok');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Largo de objeto\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.mensaje).to.have.lengthOf(2);",
+							"});",
+							"",
+							"pm.test(\"Content-Type header\", () => {",
+							"  pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type application/json\", () => {",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');",
+							"});",
+							"",
+							"pm.test(\"Cuerpo texto\",() => {",
+							"  pm.expect(pm.response.text()).to.include(\"active\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Tipo de dato objeto\", () => {",
+							"  pm.expect(responseJson.confirmed).to.be.an(\"number\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Objetos presentes\", () => {",
+							"  const expectedObject = {",
+							"    \"mensaje\": \"ok\",",
+							"    \"country\": \"chile\"",
+							"  };",
+							"  pm.expect(pm.response.json()).to.deep.include(expectedObject);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/rest/mscovid/estadoPais?pais=chile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"rest",
+						"mscovid",
+						"estadoPais"
+					],
+					"query": [
+						{
+							"key": "pais",
+							"value": "chile"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
